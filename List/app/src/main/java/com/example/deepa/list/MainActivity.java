@@ -20,9 +20,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends ListActivity {
 
-    private ArrayList<String> todolist ;
+    private ArrayList<String> todolist;
+    private ArrayList<String> infoList;
+    private ArrayList<Boolean> completedList;
     public final static String TITLE_MESSAGE = "com.example.deepa.list.TITLE_MESSAGE";
     public final static String INFO_MESSAGE = "com.example.deepa.list.INFO_MESSAGE";
+    public final static String COMPLETED_MESSAGE = "com.example.deepa.list.COMPLETED_MESSAGE";
     public ListView theListView;
 
     /*
@@ -41,7 +44,12 @@ public class MainActivity extends ListActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         todolist = new ArrayList<String>();
+        infoList = new ArrayList<String>();
+        completedList = new ArrayList<Boolean>();
         todolist.add("Get the number 1 ticket at Bodo's");
+        infoList.add("Wake up early and go to Bodo's at 6 AM or else you will be too late. Good luck!");
+        completedList.add(false);
+
         todolist.add("Streak the lawn");
         todolist.add("Paint beta bridge");
         todolist.add("O'hill brunch");
@@ -71,8 +79,6 @@ public class MainActivity extends ListActivity {
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-//                TextView clickedTextView = (TextView) view.findViewById(R.id.list_item);
                 String clickedPosition = "Clicked item #" + position;
                 Toast toast = Toast.makeText(MainActivity.this, clickedPosition, Toast.LENGTH_SHORT);
                 toast.show();
@@ -82,6 +88,8 @@ public class MainActivity extends ListActivity {
                 String clickedText = (String) parent.getItemAtPosition(position);
                 Log.i("clickedText", clickedText.getClass().toString());
                 intent.putExtra(TITLE_MESSAGE, clickedText);
+                intent.putExtra(INFO_MESSAGE, infoList.get(position));
+                intent.putExtra(COMPLETED_MESSAGE, completedList.get(position));
                 startActivity(intent);
             }
         });
