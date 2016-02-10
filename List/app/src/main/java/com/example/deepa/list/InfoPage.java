@@ -14,21 +14,20 @@ public class InfoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_page);
         Intent intent = getIntent();
-        String title = intent.getStringExtra(MainActivity.TITLE_MESSAGE);
-        String info = intent.getStringExtra(MainActivity.INFO_MESSAGE);
-        String completed = intent.getStringExtra(MainActivity.COMPLETED_MESSAGE);
-
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(title);
+        int index = intent.getIntExtra(MainActivity.INDEX_MESSAGE, 99);
+        String title = ListData.getTitleList().get(index);
+        String info = ListData.getInfoList().get(index);
+        boolean completed = ListData.getCompletedList().get(index);
 
         TextView titleView = (TextView) findViewById(R.id.list_item_name);
         titleView.setText("Title: " + title);
+        titleView.setTextSize(40);
 
         TextView infoView = (TextView) findViewById(R.id.list_item_info);
         infoView.setText("Info: " + info);
+        infoView.setTextSize(24);
 
-//        RelativeLayout layout = (RelativeLayout) findViewById(R.id.detail_layout);
+ //       RelativeLayout layout = (RelativeLayout) findViewById(R.id.detail_layout);
  //       layout.addView(textView);
 
 

@@ -20,12 +20,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends ListActivity {
 
-    private ArrayList<String> todolist;
+    private ArrayList<String> titleList;
     private ArrayList<String> infoList;
     private ArrayList<Boolean> completedList;
-    public final static String TITLE_MESSAGE = "com.example.deepa.list.TITLE_MESSAGE";
-    public final static String INFO_MESSAGE = "com.example.deepa.list.INFO_MESSAGE";
-    public final static String COMPLETED_MESSAGE = "com.example.deepa.list.COMPLETED_MESSAGE";
+    public final static String INDEX_MESSAGE = "com.example.deepa.list.INDEX_MESSAGE";
+
     public ListView theListView;
 
     /*
@@ -37,42 +36,17 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ListData.initializeListData();
         theListView = (ListView) findViewById(android.R.id.list);
-        //String s = theListView.toString();
-        //Log.i("hi", s);
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        todolist = new ArrayList<String>();
-        infoList = new ArrayList<String>();
-        completedList = new ArrayList<Boolean>();
-        todolist.add("Get the number 1 ticket at Bodo's");
-        infoList.add("Wake up early and go to Bodo's at 6 AM or else you will be too late. Good luck!");
-        completedList.add(false);
-
-        todolist.add("Streak the lawn");
-        todolist.add("Paint beta bridge");
-        todolist.add("O'hill brunch");
-        todolist.add("Go to Trick or Treating on the Lawn");
-        todolist.add("Go to a basketball game");
-        todolist.add("Dress up in pearls/tie for a football game");
-        todolist.add("Go inside the Rotunda");
-        todolist.add("Sing the Good Ole Song");
-        todolist.add("Have a picnic on the lawn");
-        todolist.add("Attend Rotunda Sing");
-        todolist.add("Go to Lighting of the Lawn");
-        todolist.add("High-five Dean Groves");
-        todolist.add("Pick apples at Carter's Mountain");
-        todolist.add("Pull an all-nighter at Clem");
-        todolist.add("Eat at Pancakes for Parkinson's");
-        todolist.add("Volunteer through Madison House");
-        todolist.add("Do a sunrise hike at Humpback Mountain");
-        todolist.add("Visit Carr's Hill");
-        todolist.add("Get a job");
-
+        
+        titleList = ListData.getTitleList();
+        infoList = ListData.getInfoList();
+        completedList = ListData.getCompletedList();
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.list_item,
-                todolist);
+                titleList);
         //theListView.setAdapter(listAdapter);
         setListAdapter(listAdapter);
 
@@ -87,9 +61,7 @@ public class MainActivity extends ListActivity {
                 Intent intent = new Intent(MainActivity.this, InfoPage.class);
                 String clickedText = (String) parent.getItemAtPosition(position);
                 Log.i("clickedText", clickedText.getClass().toString());
-                intent.putExtra(TITLE_MESSAGE, clickedText);
-                intent.putExtra(INFO_MESSAGE, infoList.get(position));
-                intent.putExtra(COMPLETED_MESSAGE, completedList.get(position));
+                intent.putExtra(INDEX_MESSAGE, position);
                 startActivity(intent);
             }
         });
@@ -109,8 +81,11 @@ public class MainActivity extends ListActivity {
 
         TextView textview = (TextView) findViewById(R.id.list_item);
         String message = textview.getText().toString();
-        intent.putExtra(TITLE_MESSAGE, message);
+        intent.putExtra(INDEX_MESSAGE, message);
         startActivity(intent);
 
     }
+
+
 }
+
