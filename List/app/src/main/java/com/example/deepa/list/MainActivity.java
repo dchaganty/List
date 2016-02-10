@@ -79,14 +79,10 @@ public class MainActivity extends ListActivity {
 
                 Log.i("onItemClick", "I was clicked!");
                 Intent intent = new Intent(MainActivity.this, InfoPage.class);
-                Object clickedObject = parent.getItemAtPosition(position);
-//                Log.i("clickedObject", clickedObject.toString());
-                Log.i("clickedObject", clickedObject.getClass().toString());
-//                //String clickedText = clickedView.getText().toString();
-//                // TextView textview = (TextView) findViewById(R.id.list_item);
-//                // String message = textview.getText().toString();
-//                intent.putExtra(TITLE_MESSAGE, clickedText);
-//                startActivity(intent);
+                String clickedText = (String) parent.getItemAtPosition(position);
+                Log.i("clickedText", clickedText.getClass().toString());
+                intent.putExtra(TITLE_MESSAGE, clickedText);
+                startActivity(intent);
             }
         });
 
