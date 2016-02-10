@@ -34,7 +34,7 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //theListView = (ListView) findViewById(R.id.list_layout);
+        theListView = (ListView) findViewById(android.R.id.list);
         //String s = theListView.toString();
         //Log.i("hi", s);
 
@@ -65,41 +65,31 @@ public class MainActivity extends ListActivity {
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.list_item,
                 todolist);
+        //theListView.setAdapter(listAdapter);
         setListAdapter(listAdapter);
 
-        /*
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast = Toast.makeText(MainActivity.this, "hi", Toast.LENGTH_SHORT);
+
+//                TextView clickedTextView = (TextView) view.findViewById(R.id.list_item);
+                String clickedPosition = "Clicked item #" + position;
+                Toast toast = Toast.makeText(MainActivity.this, clickedPosition, Toast.LENGTH_SHORT);
                 toast.show();
+
+                Log.i("onItemClick", "I was clicked!");
                 Intent intent = new Intent(MainActivity.this, InfoPage.class);
-                TextView clickedView = (TextView) view;
-                String clickedText = clickedView.getText().toString();
-                // TextView textview = (TextView) findViewById(R.id.list_item);
-                // String message = textview.getText().toString();
-                intent.putExtra(TITLE_MESSAGE, clickedText);
-                startActivity(intent);
+                Object clickedObject = parent.getItemAtPosition(position);
+//                Log.i("clickedObject", clickedObject.toString());
+                Log.i("clickedObject", clickedObject.getClass().toString());
+//                //String clickedText = clickedView.getText().toString();
+//                // TextView textview = (TextView) findViewById(R.id.list_item);
+//                // String message = textview.getText().toString();
+//                intent.putExtra(TITLE_MESSAGE, clickedText);
+//                startActivity(intent);
             }
         });
-        */
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Toast toast = Toast.makeText(this, id, Toast.LENGTH_SHORT);
-        toast.show();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void showDetail(View view) {
