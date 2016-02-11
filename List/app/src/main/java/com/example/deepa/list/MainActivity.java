@@ -20,47 +20,42 @@ import java.util.ArrayList;
 
 public class MainActivity extends ListActivity {
 
+    public ListView theListView;
     private ArrayList<String> titleList;
     private ArrayList<String> infoList;
     private ArrayList<Boolean> completedList;
     public final static String INDEX_MESSAGE = "com.example.deepa.list.INDEX_MESSAGE";
 
-    public ListView theListView;
 
-    /*
-    public void onClick(View v) {
-        Toast toast = Toast.makeText(this, "hello",Toast.LENGTH_SHORT );
-    }
-    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Initialize and set the content view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ListData.initializeListData();
-        theListView = (ListView) findViewById(android.R.id.list);
 
+        // Store local reference to the ListView
+        theListView = (ListView) findViewById(android.R.id.list);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        
+
+        // Populate local ArrayLists
         titleList = ListData.getTitleList();
         infoList = ListData.getInfoList();
         completedList = ListData.getCompletedList();
 
+        // Create adapter to dynamically pass strings to the view
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.list_item,
                 titleList);
-        //theListView.setAdapter(listAdapter);
         setListAdapter(listAdapter);
 
+        // Set on click listener to generate an intent and launch new activity
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String clickedPosition = "Clicked item #" + position;
-                Toast toast = Toast.makeText(MainActivity.this, clickedPosition, Toast.LENGTH_SHORT);
-                toast.show();
-
-                Log.i("onItemClick", "I was clicked!");
-                Intent intent = new Intent(MainActivity.this, InfoPage.class);
+                Log.i("onItemClick", "The item at index " + position + "was clicked!");
                 String clickedText = (String) parent.getItemAtPosition(position);
-                Log.i("clickedText", clickedText.getClass().toString());
+                Intent intent = new Intent(MainActivity.this, InfoPage.class);
                 intent.putExtra(INDEX_MESSAGE, position);
                 startActivity(intent);
             }
@@ -68,16 +63,10 @@ public class MainActivity extends ListActivity {
 
     }
 
+    // TODO: Remove this
     public void showDetail(View view) {
         Toast toast = Toast.makeText(this, "hi", Toast.LENGTH_SHORT);
         Intent intent = new Intent(this, InfoPage.class);
-
-        //TextView clickedView = (TextView)view;
-        //view.getParent();
-        //String clickedText = clickedView.getText().toString();
-        //intent.putExtra(TITLE_MESSAGE, clickedText);
-
-       // LauncherActivity.ListItem clickedView = (LauncherActivity.ListItem)view;
 
         TextView textview = (TextView) findViewById(R.id.list_item);
         String message = textview.getText().toString();
