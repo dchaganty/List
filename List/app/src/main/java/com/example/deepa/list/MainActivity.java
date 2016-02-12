@@ -65,24 +65,36 @@ public class MainActivity extends ListActivity {
         theListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("onItemLongClick", "The item at index " + position + " was LONG clicked!");
-                long pos = parent.getItemIdAtPosition(position);
-                view.setBackgroundColor(Color.parseColor("#73e600"));
+                Log.i("onItemLongClick", "Position: " + position + "id: " + id);
+                boolean completed = ListData.getCompletedList().get(position);
+                if (completed) {
+                    ListData.setCompleted(position, false);
+                    view.setBackgroundColor(Color.parseColor("#eeeeee"));
+                } else {
+                    ListData.setCompleted(position, true);
+                    view.setBackgroundColor(Color.parseColor("#73e600"));
+                }
+
                 return true;
             }
         });
+
+
     }
 
-    // TODO: Remove this
-    public void showDetail(View view) {
-        Toast toast = Toast.makeText(this, "hi", Toast.LENGTH_SHORT);
-        Intent intent = new Intent(this, InfoPage.class);
-
-        TextView textview = (TextView) findViewById(R.id.list_item);
-        String message = textview.getText().toString();
-        intent.putExtra(INDEX_MESSAGE, message);
-        startActivity(intent);
-
+    public void completeTask(View view) {
+        TextView t = (TextView) view;
+        int theId = t.getId();
+        Log.i("POSITION", "" + theId);
+//        String current = (String) t.getText();
+//        if (current.equals("✓")) {
+//            t.setText("DONE");
+//            t.setTextColor(Color.parseColor("#73e600"));
+//        }
+//        else {
+//            t.setText("✓");
+//            t.setTextColor(Color.parseColor("#cccccc"));
+//        }
     }
 
 
