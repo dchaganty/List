@@ -60,7 +60,6 @@ public class MainActivity extends ListActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     // TODO: Remove this
