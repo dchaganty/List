@@ -24,13 +24,12 @@ public class InfoPage extends AppCompatActivity {
 
         // Update title label
         TextView titleView = (TextView) findViewById(R.id.list_item_name);
-        titleView.setText("Title: " + title);
-        titleView.setTextSize(40);
+        titleView.setText(title);
 
         // Update info label
         TextView infoView = (TextView) findViewById(R.id.list_item_info);
-        infoView.setText("Info: " + info);
-        infoView.setTextSize(24);
+        infoView.setText(info);
+
 
  //       RelativeLayout layout = (RelativeLayout) findViewById(R.id.detail_layout);
  //       layout.addView(textView);
