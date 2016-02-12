@@ -2,6 +2,7 @@ package com.example.deepa.list;
 
 import android.app.LauncherActivity;
 import android.app.ListActivity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,7 +38,6 @@ public class MainActivity extends ListActivity {
 
         // Store local reference to the ListView
         theListView = (ListView) findViewById(android.R.id.list);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         // Populate local ArrayLists
         titleList = ListData.getTitleList();
@@ -53,11 +53,22 @@ public class MainActivity extends ListActivity {
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("onItemClick", "The item at index " + position + "was clicked!");
+                Log.i("onItemClick", "The item at index " + position + " was clicked!");
                 String clickedText = (String) parent.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, InfoPage.class);
                 intent.putExtra(INDEX_MESSAGE, position);
                 startActivity(intent);
+            }
+        });
+
+        // Set on click listener to generate an intent and launch new activity
+        theListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("onItemLongClick", "The item at index " + position + " was LONG clicked!");
+                long pos = parent.getItemIdAtPosition(position);
+                view.setBackgroundColor(Color.parseColor("#73e600"));
+                return true;
             }
         });
     }

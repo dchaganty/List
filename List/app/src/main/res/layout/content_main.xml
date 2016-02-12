@@ -8,15 +8,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-    <!--tools:context="com.example.deepa.list.MainActivity"
-    tools:showIn="@layout/activity_main">-->
 
     <TextView
         android:id="@+id/list_item_dummy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-
+        android:padding="2dp"
+        android:text="List item"
         />
 </LinearLayout>
