@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.content.Intent;
 import android.widget.TextView;
@@ -45,8 +46,7 @@ public class MainActivity extends ListActivity {
         completedList = ListData.getCompletedList();
 
         // Create adapter to dynamically pass strings to the view
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.list_item,
-                titleList);
+        SpecialAdapter listAdapter = new SpecialAdapter(this, R.layout.list_layout, titleList);
         setListAdapter(listAdapter);
 
         // Set on click listener to generate an intent and launch new activity
@@ -67,36 +67,27 @@ public class MainActivity extends ListActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("onItemLongClick", "Position: " + position + "id: " + id);
                 boolean completed = ListData.getCompletedList().get(position);
+                RelativeLayout l = (RelativeLayout)view;
+                TextView v = (TextView)l.getChildAt(0);
+                TextView w = (TextView)l.getChildAt(1);
+                Log.i("Children", "v:" + v.getText().toString() + " w: " + w.getText().toString());
                 if (completed) {
+                    // Reset
                     ListData.setCompleted(position, false);
-                    view.setBackgroundColor(Color.parseColor("#eeeeee"));
-                } else {
-                    ListData.setCompleted(position, true);
-                    view.setBackgroundColor(Color.parseColor("#73e600"));
-                }
+                    v.setTextColor(Color.BLACK);
+                    w.setText("\u2705");
+                    w.setTextColor(Color.LTGRAY);
 
+                } else {
+                    // Complete
+                    ListData.setCompleted(position, true);
+                    v.setTextColor(Color.LTGRAY);
+                    w.setText("DONE!");
+                    w.setTextColor(Color.parseColor("#73e600"));
+                }
                 return true;
             }
         });
-
-
     }
-
-    public void completeTask(View view) {
-        TextView t = (TextView) view;
-        int theId = t.getId();
-        Log.i("POSITION", "" + theId);
-//        String current = (String) t.getText();
-//        if (current.equals("✓")) {
-//            t.setText("DONE");
-//            t.setTextColor(Color.parseColor("#73e600"));
-//        }
-//        else {
-//            t.setText("✓");
-//            t.setTextColor(Color.parseColor("#cccccc"));
-//        }
-    }
-
-
 }
 
