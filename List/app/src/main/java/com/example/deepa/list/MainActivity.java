@@ -54,24 +54,27 @@ public class MainActivity extends ListActivity {
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("onItemClick", "The item at index " + position + " was clicked!");
+                Log.i("Item Click", "Position: " + position + "id: " + id);
                 String clickedText = (String) parent.getItemAtPosition(position);
+                ListData.setIndexLastClicked(position);
+                ListData.setIdLastClicked(view.getId());
                 Intent intent = new Intent(MainActivity.this, InfoPage.class);
                 intent.putExtra(INDEX_MESSAGE, position);
                 startActivity(intent);
             }
         });
 
-        // Set on click listener to generate an intent and launch new activity
+        // Long click listener used to complete/reset items from the main list view
         theListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("onItemLongClick", "Position: " + position + "id: " + id);
+                Log.i("Item Long Click", "Position: " + position + "id: " + id);
                 boolean completed = ListData.getCompletedList().get(position);
                 RelativeLayout l = (RelativeLayout)view;
                 TextView v = (TextView)l.getChildAt(0);
                 TextView w = (TextView)l.getChildAt(1);
                 Log.i("Children", "v:" + v.getText().toString() + " w: " + w.getText().toString());
+
                 if (completed) {
                     // Reset
                     ListData.setCompleted(position, false);
@@ -91,6 +94,35 @@ public class MainActivity extends ListActivity {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (ListData.indexLastClicked != 99) {
+            int idx = ListData.indexLastClicked;
+//            Log.i("ON RESUME", "" + "Item last clicked: " + ListData.getTitleList().get(idx));
+//            Log.i("ON RESUME", "" + "Index last clicked: " + idx);
+//            Log.i("ON RESUME", "" + "Values last clicked: " + ListData.getCompletedList().get(idx));
+//            Log.i("ON RESUME", "" + "ID last clicked: " + ListData.iDLastClicked);
+            RelativeLayout lastClicked = (RelativeLayout) theListView.getChildAt(ListData.indexLastClicked - theListView.getFirstVisiblePosition());
+            TextView v = (TextView)lastClicked.getChildAt(0);
+            TextView w = (TextView)lastClicked.getChildAt(1);
+            boolean completed = ListData.getCompletedList().get(ListData.indexLastClicked);
+//            Log.i("ON RESUME", "" + "Title from view: " + v.getText());
+//            Log.i("ON RESUME", "" + "Status from view: " + w.getText());
+//            Log.i("ON RESUME", "" + "ID from view: " + lastClicked.getId());
+
+            if (completed) {
+                v.setTextColor(Color.LTGRAY);
+                w.setText("DONE!");
+                w.setTextColor(Color.parseColor("#73e600"));
+
+            } else {
+                v.setTextColor(Color.BLACK);
+                w.setText("\u2705");
+                w.setTextColor(Color.LTGRAY);
+            }
+        }
+    }
 
 }
 

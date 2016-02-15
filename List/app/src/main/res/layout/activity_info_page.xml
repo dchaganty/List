@@ -79,7 +79,9 @@
         android:padding="50dp"
         android:layout_below="@+id/shim"
         android:layout_gravity="center_horizontal"
+        android:onClick="completeItem"
         style="?android:attr/borderlessButtonStyle"
+
 
         />
 

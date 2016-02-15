@@ -4,6 +4,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 
 public class InfoPage extends AppCompatActivity {
 
-
+    int index;
 
 
     @Override
@@ -28,7 +29,6 @@ public class InfoPage extends AppCompatActivity {
         String info = ListData.getInfoList().get(index);
         boolean completed = ListData.getCompletedList().get(index);
 
-
         // Update title label
         TextView titleView = (TextView) findViewById(R.id.list_item_name);
         titleView.setText(title);
@@ -40,44 +40,55 @@ public class InfoPage extends AppCompatActivity {
         Button b = (Button) findViewById(R.id.the_button);
 
         if(completed) {
-            b.setText("Done!");
+            b.setText("COMPLETED!");
         }
         else {
-            b.setText("Complete me!");
+            b.setText("Click here to complete!");
         }
 
-
-        View.OnClickListener buttonListener = new View.OnClickListener() {
-            Button b = (Button) findViewById(R.id.the_button);
-            Intent intent = getIntent();
-            int index = intent.getIntExtra(MainActivity.INDEX_MESSAGE, 99);
-            boolean complete = ListData.getCompletedList().get(index);
-            boolean answer = false;
-            @Override
-            public void onClick(View v) {
-                if(complete) {
-                    complete = false;
-                    ListData.getCompletedList().set(index, complete);
-                    answer = ListData.getCompletedList().get(index);
-                    Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
-                   // b.setText("Done!");
-
-
-                }
-                else {
-                    complete = true;
-                    ListData.getCompletedList().set(index, complete);
-                    answer = ListData.getCompletedList().get(index);
-                    Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
-                 //   b.setText("Complete me!");
-                }
-            }
-        };
-        b.setOnClickListener(buttonListener);
+//            boolean complete = ListData.getCompletedList().get(index);
+//            boolean answer = false;
+//
+//            @Override
+//            public void onClick(View v) {
+//                Button b = (Button)v;
+//
+//                if(complete) {
+//                    complete = false;
+//                    ListData.getCompletedList().set(index, complete);
+//                    answer = ListData.getCompletedList().get(index);
+//                    b.setText("COMPLETED!");
+//                    Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else {
+//
+//                    complete = true;
+//                    ListData.getCompletedList().set(index, complete);
+//                    b.setText("Click here to complete!");
+//                    answer = ListData.getCompletedList().get(index);
+//                    Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
+//        b.setOnClickListener(buttonListener);
 
 
     }
 
+    public void completeItem(View view) {
+        Button b = (Button)view;
+        int i = ListData.indexLastClicked;
+        boolean completed = ListData.toggleCompleted(i);
+        Log.i("Item " + i, "set to " + ListData.getCompletedList().get(i));
 
+        if(completed) {
+            b.setText("COMPLETED!");
+        }
+
+        else {
+            b.setText("Click here to complete!");
+        }
+    }
 
 }
