@@ -16,7 +16,6 @@ public class InfoPage extends AppCompatActivity {
 
     int index;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,37 +44,9 @@ public class InfoPage extends AppCompatActivity {
         else {
             b.setText("Click here to complete!");
         }
-
-//            boolean complete = ListData.getCompletedList().get(index);
-//            boolean answer = false;
-//
-//            @Override
-//            public void onClick(View v) {
-//                Button b = (Button)v;
-//
-//                if(complete) {
-//                    complete = false;
-//                    ListData.getCompletedList().set(index, complete);
-//                    answer = ListData.getCompletedList().get(index);
-//                    b.setText("COMPLETED!");
-//                    Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
-//                }
-//
-//                else {
-//
-//                    complete = true;
-//                    ListData.getCompletedList().set(index, complete);
-//                    b.setText("Click here to complete!");
-//                    answer = ListData.getCompletedList().get(index);
-//                    Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//        b.setOnClickListener(buttonListener);
-
-
     }
 
+    // Button's onClick method
     public void completeItem(View view) {
         Button b = (Button)view;
         int i = ListData.indexLastClicked;

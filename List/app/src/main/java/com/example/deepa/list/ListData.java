@@ -15,14 +15,12 @@ public class ListData {
     public static ArrayList<Boolean> getCompletedList() { return completedList; }
 
     public static int indexLastClicked = 99;
-    public static int iDLastClicked = 99;
 
     public static void setCompleted(int index, boolean completed) { completedList.set(index, completed); }
 
     public static boolean toggleCompleted(int index) { completedList.set(index, !completedList.get(index)); return completedList.get(index);}
 
     public static void setIndexLastClicked(int index) { indexLastClicked = index; }
-    public static void setIdLastClicked(int theID) { iDLastClicked = theID; }
 
     public static void initializeListData() {
         titleList = new ArrayList<String>();

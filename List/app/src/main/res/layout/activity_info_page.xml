@@ -81,9 +81,6 @@
         android:layout_gravity="center_horizontal"
         android:onClick="completeItem"
         style="?android:attr/borderlessButtonStyle"
-
-
         />
-
 
 </LinearLayout>

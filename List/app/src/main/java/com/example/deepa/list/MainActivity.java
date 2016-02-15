@@ -57,7 +57,6 @@ public class MainActivity extends ListActivity {
                 Log.i("Item Click", "Position: " + position + "id: " + id);
                 String clickedText = (String) parent.getItemAtPosition(position);
                 ListData.setIndexLastClicked(position);
-                ListData.setIdLastClicked(view.getId());
                 Intent intent = new Intent(MainActivity.this, InfoPage.class);
                 intent.putExtra(INDEX_MESSAGE, position);
                 startActivity(intent);
@@ -97,19 +96,14 @@ public class MainActivity extends ListActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        // Format the most recently clicked item upon returning from info page
         if (ListData.indexLastClicked != 99) {
             int idx = ListData.indexLastClicked;
-//            Log.i("ON RESUME", "" + "Item last clicked: " + ListData.getTitleList().get(idx));
-//            Log.i("ON RESUME", "" + "Index last clicked: " + idx);
-//            Log.i("ON RESUME", "" + "Values last clicked: " + ListData.getCompletedList().get(idx));
-//            Log.i("ON RESUME", "" + "ID last clicked: " + ListData.iDLastClicked);
             RelativeLayout lastClicked = (RelativeLayout) theListView.getChildAt(ListData.indexLastClicked - theListView.getFirstVisiblePosition());
             TextView v = (TextView)lastClicked.getChildAt(0);
             TextView w = (TextView)lastClicked.getChildAt(1);
             boolean completed = ListData.getCompletedList().get(ListData.indexLastClicked);
-//            Log.i("ON RESUME", "" + "Title from view: " + v.getText());
-//            Log.i("ON RESUME", "" + "Status from view: " + w.getText());
-//            Log.i("ON RESUME", "" + "ID from view: " + lastClicked.getId());
 
             if (completed) {
                 v.setTextColor(Color.LTGRAY);
