@@ -74,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="I have done this!"
+        android:background="#de8d07"
         android:textColor="@color/colorPrimaryDark"
         android:padding="50dp"
         android:layout_below="@+id/shim"
@@ -81,5 +82,6 @@
         style="?android:attr/borderlessButtonStyle"
 
         />
+
 
 </LinearLayout>

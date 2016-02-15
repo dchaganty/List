@@ -39,8 +39,16 @@ public class InfoPage extends AppCompatActivity {
 
         Button b = (Button) findViewById(R.id.the_button);
 
+        if(completed) {
+            b.setText("Done!");
+        }
+        else {
+            b.setText("Complete me!");
+        }
+
 
         View.OnClickListener buttonListener = new View.OnClickListener() {
+            Button b = (Button) findViewById(R.id.the_button);
             Intent intent = getIntent();
             int index = intent.getIntExtra(MainActivity.INDEX_MESSAGE, 99);
             boolean complete = ListData.getCompletedList().get(index);
@@ -52,6 +60,8 @@ public class InfoPage extends AppCompatActivity {
                     ListData.getCompletedList().set(index, complete);
                     answer = ListData.getCompletedList().get(index);
                     Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
+                   // b.setText("Done!");
+
 
                 }
                 else {
@@ -59,17 +69,12 @@ public class InfoPage extends AppCompatActivity {
                     ListData.getCompletedList().set(index, complete);
                     answer = ListData.getCompletedList().get(index);
                     Toast.makeText(getBaseContext(), String.valueOf(answer), Toast.LENGTH_SHORT).show();
+                 //   b.setText("Complete me!");
                 }
             }
         };
         b.setOnClickListener(buttonListener);
 
-        if(completed) {
-            b.setText("Done!");
-        }
-        else {
-            b.setText("Complete Me!");
-        }
 
     }
 
