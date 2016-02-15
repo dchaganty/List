@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 public class InfoPage extends AppCompatActivity {
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,37 +38,38 @@ public class InfoPage extends AppCompatActivity {
         infoView.setText(info);
 
         Button b = (Button) findViewById(R.id.the_button);
+
         if(completed) {
            b.setText("Done!");
         }
         else {
             b.setText("Complete Me!");
         }
-        /*
+
         View.OnClickListener buttonListener = new View.OnClickListener() {
-            boolean clicked = false;
             Intent intent = getIntent();
             int index = intent.getIntExtra(MainActivity.INDEX_MESSAGE, 99);
             boolean completed = ListData.getCompletedList().get(index);
             @Override
             public void onClick(View v) {
+
                 if(completed) {
-                    completed = !completed;
-                    ListData.getCompletedList().set(index, completed);
+                    //completed = !completed;
+                    //ListData.getCompletedList().set(index, completed);
+                    Toast.makeText(getBaseContext(), "clicked when completed", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
-                    completed = !completed;
-                    ListData.getCompletedList().set(index, completed);
+                    //completed = !completed;
+                    //ListData.getCompletedList().set(index, completed);
+                    Toast.makeText(getBaseContext(), "clicked when not completed", Toast.LENGTH_SHORT).show();
                 }
             }
         };
         b.setOnClickListener(buttonListener);
-        */
- //       RelativeLayout layout = (RelativeLayout) findViewById(R.id.detail_layout);
- //       layout.addView(textView);
+//
 
     }
-
 
 
 
